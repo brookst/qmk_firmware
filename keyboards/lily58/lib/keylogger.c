@@ -5,17 +5,22 @@ char keylog_str[24] = {};
 char keylogs_str[21] = {};
 int keylogs_str_idx = 0;
 
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', ' ', ' ', ' ', ' ', ' ', ' ',
-    ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
+const char code_to_name[104] = {
+    '_', '_', '_', '_', 'a', 'b', 'c', 'd', 'e', 'f',       // 0_
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',       // 1_
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',       // 2_
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',       // 3_
+    'R', 'E', 'B', 'T', ' ', '-', '=', '[', ']', '\\',      // 4_
+    '#', ';', '\'', '`', ',', '.', '/', '_', 'F', 'F',      // 5_
+    'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F', 'F',       // 6_
+    'P', '_', '_', '_', '_', ' ', 'D', '_', '_', 0x1a,      // 7_
+    0x1b, 0x19, 0x18, '_', '/', '*', '-', '+', 'R', '1',    // 8_
+    '2', '3', '4', '5', '6', '7', '8', '9', '0', '.',       // 9_
+    '\\', '_', '_', '='};                                   //10_
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
-  char name = ' ';
-  if (keycode < 60) {
+  char name = '_';
+  if (keycode < 104) {
     name = code_to_name[keycode];
   }
 
@@ -26,9 +31,9 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 
   // update keylogs
   if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-    keylogs_str_idx = 0;
+    keylogs_str_idx -= 1;
     for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-      keylogs_str[i] = ' ';
+      keylogs_str[i] = keylogs_str[i+1];
     }
   }
 
