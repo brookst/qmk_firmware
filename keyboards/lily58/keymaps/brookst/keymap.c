@@ -12,9 +12,11 @@
 
 enum layer_number {
   _QWERTY = 0,
+  _GAME,
   _LOWER,
   _RAISE,
   _ADJUST,
+  _INVENT,
 };
 
 enum custom_keycodes {
@@ -53,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |  `   |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  -   |
  *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  *         |      |   !  |  @/" |  #/£ |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |  =   |
- *         |------+------+------+------+------+------|  LGUI |    | RAlt  |------+------+------+------+------+------|
+ *         |------+------+------+------+------+------|  GAME |    | RAlt  |------+------+------+------+------+------|
  *         |      |   \  |      |  #   |   ~  |      |-------|    |-------|   +  |   _  |   ,  |   .  |   /  |      |
  *         `-----------------------------------------/       /     \      \-----------------------------------------'
  *                           | LGUI | LAlt |LOWER | / Space /       \ Enter\  |RAISE |BackSP| RCtl |
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
    KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   _______, KC_EXLM, S(KC_2), KC_HASH,  KC_DLR, KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_EQL,
-  _______, KC_NUBS, _______, KC_NUHS,S(KC_NUHS),_______,_______, _______, KC_PLUS, KC_UNDS, _______, _______, _______, _______,
+  _______, KC_NUBS, _______, KC_NUHS,S(KC_NUHS),_______,TG(_GAME),_______,KC_PLUS, KC_UNDS, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* RAISE
@@ -91,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* ADJUST
  *         ,-----------------------------------------.                    ,-----------------------------------------.
- *         | NKRO |      |      |      |      |      |                    |      |      |      |      |      | DBG  |
+ *         | NKRO |      |      |      |      | GAME |                    |      |      |      |      |      | DBG  |
  *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  *         |      |      |      |      |      |      |                    | FFwd |      |      |  Rwd |      |      |
  *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -104,10 +106,52 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                           `----------------------------'           `------`'--------------------'
  */
   [_ADJUST] = LAYOUT(
-  NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,
+  NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TG(_GAME),                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   KC_MFFD, XXXXXXX, XXXXXXX, KC_MRWD, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_WBAK, KC_WREF, KC_WSTP, KC_WFWD, XXXXXXX,                   KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX,  KC_BDN,  KC_BUP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
+                             _______, _______, _______, _______, _______, _______, _______, _______
+  ),
+/* GAME
+ *         ,-----------------------------------------.                    ,-----------------------------------------.
+ *         | ESC  |      |      |      |      |      |                    |      |      |      |      |      |      |
+ *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ *         |  T   | Tab  |  Q   |  W   |  E   |  R   |                    |      |      |      |      |      |      |
+ *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ *         |  H   | Shift|  A   |  S   |  D   |  F   |-------.    ,-------|      |      |      |      |      |      |
+ *         |------+------+------+------+------+------|   G   |    |       |------+------+------+------+------+------|
+ *         |      | Ctrl |  Z   |  X   |  C   |  V   |-------|    |-------|      |      |      |      |      |      |
+ *         `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                           | LGUI |Enter |INVENT| / Space /       \ Enter\  |RAISE |BackSP| RCtl |
+ *                           |      |      |      |/       /         \      \ |      |      |      |
+ *                           `----------------------------'           `------`'--------------------'
+ */
+  [_GAME] = LAYOUT(
+   KC_ESC, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+     KC_T,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,                   _______, _______, _______, _______, _______, _______,
+     KC_H, KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,                   _______, _______, _______, _______, _______, _______,
+  _______, KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_G, _______, _______, _______, _______, _______, _______, _______,
+                             _______, KC_ENT,MO(_INVENT),KC_SPC, _______, _______, _______, _______
+),
+/* INVENTORY
+ *         ,-----------------------------------------.                    ,-----------------------------------------.
+ *         | F12  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+ *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ *         |  `   |   1  |   2  |   3  |   4  |   5  |                    |      |      |      |      |      |      |
+ *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ *         |      |   6  |   7  |   8  |   9  |   0  |-------.    ,-------|      |      |      |      |      |      |
+ *         |------+------+------+------+------+------|  GAME |    |       |------+------+------+------+------+------|
+ *         |      |      |      |      |      |      |-------|    |-------|      |      |      |      |      |      |
+ *         `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                           | LGUI |Enter |INVENT| / Space /       \ Enter\  |RAISE |BackSP| RCtl |
+ *                           |      |      |      |/       /         \      \ |      |      |      |
+ *                           `----------------------------'           `------`'--------------------'
+ */
+[_INVENT] = LAYOUT(
+   KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
+   KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                   _______, _______, _______, _______, _______, _______,
+  _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,TG(_GAME),_______, _______, _______, _______, _______, _______, _______,
                              _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
@@ -178,10 +222,12 @@ void oled_sync(uint8_t in_buflen, const void* in_data, uint8_t out_buflen, void*
 }
 
 #define L_BASE 0
-#define L_LOWER (1 << 1)
-#define L_RAISE (1 << 2)
-#define L_ADJUST (1 << 3)
+#define L_GAME (1 << 1)
+#define L_LOWER (1 << 2)
+#define L_RAISE (1 << 3)
+#define L_ADJUST (1 << 4)
 #define L_ADJUST_TRI (L_ADJUST | L_RAISE | L_LOWER)
+#define L_INVENT (1 << 5)
 bool booting = true;
 
 bool oled_task_user(void) {
@@ -201,23 +247,34 @@ bool oled_task_user(void) {
   if (is_keyboard_master()) {
     // If you want to change the display of OLED, you need to change here
     if (debug_enable) {
-        oled_write_P(PSTR("Master: "), false);
+        oled_write_P(PSTR("Master:"), false);
+        oled_write(get_u8_str(layer_state, ' '), false);
         switch (layer_state) {
             case L_BASE:
-                oled_write_P(PSTR("Default   "), false);
+                oled_write_P(PSTR("Qwerty  "), false);
+                break;
+            case L_GAME:
+                oled_write_P(PSTR("Game    "), false);
                 break;
             case L_RAISE:
-                oled_write_P(PSTR("Raise     "), false);
+            case (L_GAME | L_RAISE):
+                oled_write_P(PSTR("Raise   "), false);
                 break;
             case L_LOWER:
-                oled_write_P(PSTR("Lower     "), false);
+            case (L_GAME | L_LOWER):
+                oled_write_P(PSTR("Lower   "), false);
                 break;
             case L_ADJUST:
             case L_ADJUST_TRI:
-                oled_write_P(PSTR("Adjust    "), false);
+            case (L_GAME | L_ADJUST_TRI):
+                oled_write_P(PSTR("Adjust  "), false);
+                break;
+            case L_INVENT:
+            case (L_GAME | L_INVENT):
+                oled_write_P(PSTR("Invent  "), false);
                 break;
             default:
-                oled_write_P(PSTR("Unknown   "), false);
+                oled_write_P(PSTR("Unknown "), false);
         }
         oled_write(get_u8_str(oled_brightness, ' '), false);
 #ifdef KEYLOG_ENABLE
