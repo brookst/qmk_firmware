@@ -191,7 +191,7 @@ bool oled_task_user(void) {
     current_column += 1;
     oled_advance_page(true);
   }
-  if (booting) {
+  if (booting && !debug_enable) {
       oled_write(read_logo(), false);
       if (timer_read() > 3000) {
           booting = false;
