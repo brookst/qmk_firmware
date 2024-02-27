@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  *         |      | BBack| BRef | BStop| BFwd |      |-------.    ,-------| Prev | Play | Stop | Next |      |      |
  *         |------+------+------+------+------+------| OLED- |    | OLED+ |------+------+------+------+------+------|
- *         |      |      |      | Calc |      |      |-------|    |-------| Mute | VolDn| VolUp|      |      |      |
+ *         |      |   |  |      | Calc |      |      |-------|    |-------| Mute | VolDn| VolUp|      |      |      |
  *         `-----------------------------------------/       /     \      \-----------------------------------------'
  *                           | LGUI | LAlt |LOWER | / Space /       \ Enter\  |RAISE |BackSP| RCtl |
  *                           |      |      |      |/       /         \      \ |      |      |      |
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TG(_GAME),                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,
   G(KC_GRV),XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,LSG(KC_T),                  KC_MFFD, XXXXXXX, XXXXXXX, KC_MRWD, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_WBAK, KC_WREF, KC_WSTP, KC_WFWD, XXXXXXX,                   KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX,  KC_BDN,  KC_BUP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, UK_PIPE, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX,  KC_BDN,  KC_BUP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
                              _______, _______, _______, _______, _______, _______, _______, _______
   ),
 /* GAME
