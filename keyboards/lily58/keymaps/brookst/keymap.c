@@ -26,6 +26,30 @@ enum custom_keycodes {
   KC_BDN
 };
 
+// Override to enable the extra two keys in the matrix
+#define LAYOUT_MOD(\
+    k0A, k0B, k0C, k0D, k0E, k0F, \
+    k5F, k5E, k5D, k5C, k5B, k5A, \
+    k1A, k1B, k1C, k1D, k1E, k1F, \
+    k6F, k6E, k6D, k6C, k6B, k6A, \
+    k2A, k2B, k2C, k2D, k2E, k2F, \
+    k7F, k7E, k7D, k7C, k7B, k7A, \
+    k3A, k3B, k3C, k3D, k3E, k3F, k4F, \
+    k9F, k8F, k8E, k8D, k8C, k8B, k8A, \
+    k4B, k4C, k4D, k4E, k4A,\
+    k9A, k9E, k9D, k9C, k9B) { \
+        {k0A, k0B, k0C, k0D, k0E, k0F}, \
+        {k1A, k1B, k1C, k1D, k1E, k1F}, \
+        {k2A, k2B, k2C, k2D, k2E, k2F}, \
+        {k3A, k3B, k3C, k3D, k3E, k3F}, \
+        {k4A, k4B, k4C, k4D, k4E, k4F}, \
+        {k5A, k5B, k5C, k5D, k5E, k5F}, \
+        {k6A, k6B, k6C, k6D, k6E, k6F}, \
+        {k7A, k7B, k7C, k7D, k7E, k7F}, \
+        {k8A, k8B, k8C, k8D, k8E, k8F}, \
+        {k9A, k9B, k9C, k9D, k9E, k9F} \
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -38,17 +62,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |------+------+------+------+------+------|  LGUI |    | RAlt  |------+------+------+------+------+------|
  *         |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  *         `-----------------------------------------/       /     \      \-----------------------------------------'
- *                           | LGUI | LAlt |LOWER | / Space /       \ Enter\  |RAISE |BackSP| RCtl |
+ *                           | LGUI | LAlt |LOWER | / Space /Ctl Esc\ Enter\  |RAISE |BackSP| RCtl |
  *                           |      |      |      |/       /         \      \ |      |      |      |
  *                           `----------------------------'           `------`'--------------------'
  */
 
- [_QWERTY] = LAYOUT(
+ [_QWERTY] = LAYOUT_MOD(
    KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_EQL,
    KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_MINS,
   KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, KC_LGUI, KC_RALT,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,
-                             KC_LGUI, KC_LALT,MO(_LOWER),KC_SPC, KC_ENT,MO(_RAISE),KC_BSPC, KC_RCTL
+                    KC_LGUI, KC_LALT,MO(_LOWER),KC_SPC, KC_LCTL, KC_ESC, KC_ENT,MO(_RAISE), KC_BSPC, KC_RCTL
 ),
 /* LOWER
  *         ,-----------------------------------------.                    ,-----------------------------------------.
@@ -60,16 +84,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *         |------+------+------+------+------+------|  GAME |    | RAlt  |------+------+------+------+------+------|
  *         |      |   \  |      |  #   |   ~  |      |-------|    |-------|   +  |   _  |   ,  |   .  |   /  |      |
  *         `-----------------------------------------/       /     \      \-----------------------------------------'
- *                           | LGUI | LAlt |LOWER | / Space /       \ Enter\  |RAISE |BackSP| RCtl |
+ *                           | LGUI | LAlt |LOWER | / Enter /       \ Enter\  |RAISE |BackSP| RCtl |
  *                           |      |      |      |/       /         \      \ |      |      |      |
  *                           `----------------------------'           `------`'--------------------'
  */
-[_LOWER] = LAYOUT(
+[_LOWER] = LAYOUT_MOD(
    KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
    KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   _______, KC_EXLM, S(KC_2), KC_HASH,  KC_DLR, KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_EQL,
   _______, KC_NUBS, _______, KC_NUHS,S(KC_NUHS),_______,TG(_GAME),_______,KC_PLUS, KC_UNDS, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______, _______, _______, _______
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 /* RAISE
  *         ,-----------------------------------------.                    ,-----------------------------------------.
@@ -86,12 +110,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                           `----------------------------'           `------`'--------------------'
  */
 
-[_RAISE] = LAYOUT(
+[_RAISE] = LAYOUT_MOD(
   _______, _______, _______, _______, _______, _______,                   _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______,
    KC_GRV, KC_LABK, KC_LCBR, KC_LBRC, KC_LPRN, _______,                   _______, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, _______,
   _______, KC_RABK, KC_RCBR, KC_RBRC, KC_RPRN, _______,                   KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_COLN,  KC_EQL,
   _______, UK_PIPE, _______, _______, _______, _______, _______, KC_RGUI, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, _______,
-                             _______, _______, _______, _______, _______, _______,  KC_DEL, _______
+                    _______, _______, _______, _______, _______, _______, _______, _______,  KC_DEL, _______
 ),
 /* ADJUST
  *         ,-----------------------------------------.                    ,-----------------------------------------.
@@ -107,12 +131,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                           |      |      |      |/       /         \      \ |      |      |      |
  *                           `----------------------------'           `------`'--------------------'
  */
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_MOD(
   NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,TG(_GAME),                  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DB_TOGG,
   G(KC_GRV),XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX,LSG(KC_T),                  KC_MFFD, XXXXXXX, XXXXXXX, KC_MRWD, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_WBAK, KC_WREF, KC_WSTP, KC_WFWD, XXXXXXX,                   KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, XXXXXXX, XXXXXXX,
   XXXXXXX, UK_PIPE, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX,  KC_BDN,  KC_BUP, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, XXXXXXX,
-                             _______, _______, _______, _______, _______, _______, _______, _______
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 /* GAME
  *         ,-----------------------------------------.                    ,-----------------------------------------.
@@ -128,12 +152,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                           |      |      |      |/       /         \      \ |      |      |      |
  *                           `----------------------------'           `------`'--------------------'
  */
-  [_GAME] = LAYOUT(
+  [_GAME] = LAYOUT_MOD(
    KC_ESC, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
      KC_T,  KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,                   _______, _______, _______, _______, _______, _______,
      KC_H, KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,                   _______, _______, _______, _______, _______, _______,
   _______, KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_G, _______, _______, _______, _______, _______, _______, _______,
-                             KC_BSPC, KC_ENT,MO(_INVENT),KC_SPC, _______, _______, _______, _______
+                    KC_BSPC, KC_ENT,MO(_INVENT),KC_SPC, _______, _______, _______, _______, _______, _______
 ),
 /* INVENTORY
  *         ,-----------------------------------------.                    ,-----------------------------------------.
@@ -149,12 +173,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                           |      |      |      |/       /         \      \ |      |      |      |
  *                           `----------------------------'           `------`'--------------------'
  */
-[_INVENT] = LAYOUT(
+[_INVENT] = LAYOUT_MOD(
    KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
    KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                   _______, _______, _______, _______, _______, _______,
   _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                   _______, _______, _______, _______, _______, _______,
   _______,    KC_Y,    KC_J,    KC_B,    KC_N,    KC_M,TG(_GAME),_______, _______, _______, _______, _______, _______, _______,
-                             _______, _______, _______, _______, _______, _______, _______, _______
+                    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
 

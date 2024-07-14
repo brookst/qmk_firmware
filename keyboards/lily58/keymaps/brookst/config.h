@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_BRIGHTNESS 128
 #define OLED_BRIGHTNESS_STEP (256/16)
 #undef OLED_FONT_H
-#define OLED_FONT_H "lily58_font.c"
+#define OLED_FONT_H "lily60_font.c"
 #define OLED_FADE_OUT
 #define OLED_TIMEOUT 20000
 #define OLED_FADE_OUT_INTERVAL 5
